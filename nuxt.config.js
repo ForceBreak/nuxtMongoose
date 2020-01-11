@@ -1,0 +1,89 @@
+module.exports = {
+  /*
+  ** Headers of the page
+  */
+  head: {
+    title: 'nuxthomemongo',
+    meta: [
+      { charset: 'utf-8' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { hid: 'description', name: 'description', content: 'Nuxt.js project' }
+    ],
+    link: [
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+    ]
+  },
+  modules: [
+    '@nuxtjs/vuetify',
+    '@nuxtjs/axios',
+    '@nuxtjs/auth',
+  ],
+
+  vuetify: {},
+  axios: {
+    prefix: '/api/',
+    baseURL: 'http://localhost:3001',
+    headers: {
+      common: {
+        'Accept': 'application/json, text/plain, */*'
+      },
+    }
+  },
+
+  router: {
+    middleware: ['auth']
+  },
+
+  auth: {
+    strategies: {
+      local: {
+        endpoints: {
+          login: {
+            url: '/login',
+            method: 'post',
+            propertyName: 'token'
+          },
+          logout: {
+            url: '/logout',
+            method: 'post'
+          },
+          user: {
+            url: '/user',
+            method: 'get',
+            propertyName: false
+          }
+        }
+      }
+    }
+  },
+
+  // serverMiddleware: [
+  //   // Will register file from project api directory to handle /api/* requires
+  //   { path: '/api', handler: '~/api/index.js' },
+
+  // ],
+
+  /*
+  ** Customize the progress bar color
+  */
+  loading: { color: '#3B8070' },
+/*
+** Build configuration
+*/
+build: {
+  /*
+  ** Run ESLint on save
+  */
+  extend(config, { isDev, isClient }) {
+    if (isDev && isClient) {
+      config.module.rules.push({
+        enforce: 'pre',
+        test: /\.(js|vue)$/,
+        loader: 'eslint-loader',
+        exclude: /(node_modules)/
+      })
+    }
+  }
+}
+}
+
