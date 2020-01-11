@@ -1,6 +1,8 @@
 # nuxthomemongo
 
 > Nuxt.js project
+> Back-end inside api folder. Need to start in somewhere.
+(https://nuxtmongoose.now.sh/)
 
 ## Build Setup
 
